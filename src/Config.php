@@ -17,6 +17,7 @@ class Config extends \Noodlehaus\Config
             'date formats' => array(),
             'output as images' => array(),
             'url parameter' => 'stp',
+            'disallow imports' => FALSE,
         );
     }
 }

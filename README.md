@@ -82,7 +82,7 @@ xls2csv -d utf-8 file.xls > file-utf-8.csv
 
 The library depends on configuration in a separate YAML file. See singletablepages.yml.dist for an example. Here is that example config:
 ```
-# Database credentials: this is the only required section.
+# Database credentials: this is required.
 database name: myDatabase
 database user: myUser
 database password: myPassword
@@ -90,6 +90,10 @@ database host: localhost
 database table: myTable
 
 # Everything else in this document is optional.
+
+# If you want to control what the URL parameter is, set that here. Otherwise the
+# default is "stp". For example: http://example.com/my/dynamic/page?stf=123
+url parameter: stp
 
 # List the columns that should be output as links, using another columns to
 # get the destination URLs. For example, if you wanted to display the row's
@@ -135,4 +139,9 @@ columns for additional values:
 # change all occurences of § with &#167; uncomment the lines below.
 #text alterations:
 #    "§": "&#167;"
+
+# If you are sharing this database with some other application, which is in
+# charge of refreshing the data, you may want to disallow any refreshes, so
+# avoid problems. If so, set this to true.
+disallow imports: false
 ```

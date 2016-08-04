@@ -28,7 +28,7 @@ class AppCLI extends \USDOJ\SingleTablePages\App
         }
 
         $this->sourceFile = $sourceFile;
-        $config = new \USDOJ\SingleTableFacets\Config($configFile);
+        $config = new \USDOJ\SingleTablePages\Config($configFile);
         parent::__construct($config);
     }
 
@@ -37,6 +37,10 @@ class AppCLI extends \USDOJ\SingleTablePages\App
     }
 
     public function run() {
+
+        if ($this->settings('disallow imports')) {
+            die('Imports have been disabled for this application, per the configuration file.');
+        }
 
         // First import the source data.
         $importer = new \USDOJ\CsvToMysql\Importer($this->getConfig(), $this->getSourceFile());
