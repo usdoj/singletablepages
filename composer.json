@@ -1,0 +1,21 @@
+{
+    "name": "usdoj/singletablepages",
+    "require": {
+        "doctrine/dbal": "2.5.4",
+        "hassankhan/config": "0.10.0",
+        "symfony/yaml": "2.0.7",
+        "usdoj/csvtomysql": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/usdoj/csvtomysql.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "USDOJ\\SingleTablePages\\": "src"
+        }
+    },
+    "bin": ["bin/singletablepages"]
+}
