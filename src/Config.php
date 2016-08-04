@@ -16,6 +16,7 @@ class Config extends \Noodlehaus\Config
             'convert from unix dates' => array(),
             'date formats' => array(),
             'output as images' => array(),
+            'url parameter' => 'stp',
         );
     }
 }
