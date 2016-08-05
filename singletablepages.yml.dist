@@ -24,24 +24,18 @@ database table: myTable
 # default is "stp". For example: http://example.com/my/dynamic/page?stf=123
 url parameter: stp
 
-# List the columns that should be output as links, using another columns to
-# get the destination URLs. For example, if you wanted to display the row's
-# title as a link to a document, you might do something like this:
-# (The format should be: Link label : Link URL)
-output as links:
-    myTitleField: myDocumentURLField
-
-# List the columns that should be output as images. This assumes that the data
-# in these columns is the "src" attribute of an image.
-#output as images:
-#    - myImageSrcField
-
-# List the columns that should function as additional values for another column.
-# For example, if you have a Tag and Tag2 column, you could indicate that Tag2
-# is just additional values for Tag, and they would both appear together.
-columns for additional values:
-    # Extra column: Main column
-    myDatabaseColumn1: myDatabaseColumn2
+# Twig templating can be used to produce the output of the row data. To do this,
+# create a template file in the folder indicated here, named according to the
+# column name, with an extension of ".html.twig". For example, with the example
+# location below, to create a template for the "Title" column, you would create
+# a file at /path/to/templates/Title.html.twig. If no template is create for
+# a column, it will be output as its raw value. The template is passed a "row"
+# variable which contains all of the columns from the database. As an additional
+# shortcut, it gets a "value" variable which is the value of the column being
+# output.
+# Special case: A template called renderAll.html.twig will be used for any calls
+# to the AppWeb::renderAll() method.
+template folder: /path/to/templates
 
 # Excel stores dates in a weird way, and it's a waste of processing power to
 # convert it dynamically, so we assume that all date columns will be DATETIME
@@ -55,13 +49,6 @@ columns for additional values:
 # to note that here so that they will be converted into MySQL DATETIME values.
 #convert from unix dates:
 #    - myDatabaseColumn2
-
-# If any of the database table's columns are DATETIME columns, then you can
-# list them here along with a PHP date format string to use when displaying the
-# dates on the page.
-#date formats:
-#    myDatabaseColumn1: 'M Y'
-#    myDatabaseColumn2: 'M j, Y'
 
 # If there are any special characters or phrases that need to be altered when
 # importing the data from the CSV file, indicate those here. For example, to

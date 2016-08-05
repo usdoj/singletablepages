@@ -9,6 +9,7 @@ namespace USDOJ\SingleTablePages;
 class AppWeb extends \USDOJ\SingleTablePages\App {
 
     private $row;
+    private $twig;
 
     public function __construct($configFile) {
 
@@ -36,6 +37,17 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
 
         $this->row = $row;
 
+        $templateFolder = $this->settings('template folder');
+        if (!empty($templateFolder) && file_exists($templateFolder)) {
+
+            $loader = new Twig_Loader_Filesystem($templateFolder);
+            $this->twig = new Twig_Environment($loader);
+        }
+
+    }
+
+    public function getTwig() {
+        return $this->twig;
     }
 
     public function getRow() {
@@ -48,6 +60,16 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         if (!empty($row[$column])) {
             $val = $row[$column];
         }
+        // Does a template exist?
+        $twigTemplate = $column . '.html.twig';
+        if ($this->getTwig()->getLoader()->exists($twigTemplate)) {
+            // If so, render it.
+            $val = $this->getTwig()->render($twigTemplate, array(
+                'row' => $row,
+                'value' => $val,
+            ));
+        }
+
         return $val;
     }
 
