@@ -16,6 +16,7 @@ class Config extends \Noodlehaus\Config
             'url parameter' => 'stp',
             'disallow imports' => FALSE,
             'template folder' => '',
+            'unique column' => 'uuid',
         );
     }
 }

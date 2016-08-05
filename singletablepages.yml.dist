@@ -18,6 +18,12 @@ database password: myPassword
 database host: localhost
 database table: myTable
 
+# The database table must have a numeric unique column for identifying each
+# row. The values for this column should never change, because it would cause
+# the page's URL to change. Specify the name of this column here. Defaults to
+# "uuid".
+unique column: uuid
+
 # Everything else in this document is optional.
 
 # If you want to control what the URL parameter is, set that here. Otherwise the

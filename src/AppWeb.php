@@ -23,11 +23,13 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
             $this->pageNotFound();
         }
 
+        $uniqueColumn = $this->settings('unique column');
+
         $query = $this->getDb()->createQueryBuilder();
         $query
             ->from($this->settings('database table'))
             ->select('*')
-            ->where('uuid = :uuid')
+            ->where("$uniqueColumn = :uuid")
             ->setParameter('uuid', $uuid);
 
         $row = $query->execute()->fetch();
