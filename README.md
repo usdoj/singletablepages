@@ -51,6 +51,10 @@ After that, you simply render the various parts of the page wherever you would l
  <?php print $app->renderColumn('MyBodyColumn'); ?>
 </div>
 ```
+Additionally, if you have created a Twig template for the entire row, you can render that with:
+```
+<php print $app->renderAll(); ?>
+```
 
 ## Database table
 
@@ -81,67 +85,3 @@ xls2csv -d utf-8 file.xls > file-utf-8.csv
 ## Configuration
 
 The library depends on configuration in a separate YAML file. See singletablepages.yml.dist for an example. Here is that example config:
-```
-# Database credentials: this is required.
-database name: myDatabase
-database user: myUser
-database password: myPassword
-database host: localhost
-database table: myTable
-
-# Everything else in this document is optional.
-
-# If you want to control what the URL parameter is, set that here. Otherwise the
-# default is "stp". For example: http://example.com/my/dynamic/page?stf=123
-url parameter: stp
-
-# List the columns that should be output as links, using another columns to
-# get the destination URLs. For example, if you wanted to display the row's
-# title as a link to a document, you might do something like this:
-# (The format should be: Link label : Link URL)
-output as links:
-    myTitleField: myDocumentURLField
-
-# List the columns that should be output as images. This assumes that the data
-# in these columns is the "src" attribute of an image.
-#output as images:
-#    - myImageSrcField
-
-# List the columns that should function as additional values for another column.
-# For example, if you have a Tag and Tag2 column, you could indicate that Tag2
-# is just additional values for Tag, and they would both appear together.
-columns for additional values:
-    # Extra column: Main column
-    myDatabaseColumn1: myDatabaseColumn2
-
-# Excel stores dates in a weird way, and it's a waste of processing power to
-# convert it dynamically, so we assume that all date columns will be DATETIME
-# columns. Consequently, you should list here any columns that are formatted
-# as dates in the source Excel spreadsheet, so they can be converted once as
-# they are being imported. Otherwise, MySQL will not let you import them.
-#convert from excel dates:
-#    - myDatabaseColumn1
-
-# Similarly, if the source data is storing dates as Unix timestamps, make sure
-# to note that here so that they will be converted into MySQL DATETIME values.
-#convert from unix dates:
-#    - myDatabaseColumn2
-
-# If any of the database table's columns are DATETIME columns, then you can
-# list them here along with a PHP date format string to use when displaying the
-# dates on the page.
-#date formats:
-#    myDatabaseColumn1: 'M Y'
-#    myDatabaseColumn2: 'M j, Y'
-
-# If there are any special characters or phrases that need to be altered when
-# importing the data from the CSV file, indicate those here. For example, to
-# change all occurences of § with &#167; uncomment the lines below.
-#text alterations:
-#    "§": "&#167;"
-
-# If you are sharing this database with some other application, which is in
-# charge of refreshing the data, you may want to disallow any refreshes, so
-# avoid problems. If so, set this to true.
-disallow imports: false
-```
