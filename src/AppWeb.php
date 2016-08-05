@@ -40,8 +40,8 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         $templateFolder = $this->settings('template folder');
         if (!empty($templateFolder) && file_exists($templateFolder)) {
 
-            $loader = new Twig_Loader_Filesystem($templateFolder);
-            $this->twig = new Twig_Environment($loader);
+            $loader = new \Twig_Loader_Filesystem($templateFolder);
+            $this->twig = new \Twig_Environment($loader);
         }
 
     }
@@ -60,9 +60,9 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         if (!empty($row[$column])) {
             $val = $row[$column];
         }
-        // Does a template exist?
+        // Does a Twig template exist?
         $twigTemplate = $column . '.html.twig';
-        if ($this->getTwig()->getLoader()->exists($twigTemplate)) {
+        if ($this->getTwig() && $this->getTwig()->getLoader()->exists($twigTemplate)) {
             // If so, render it.
             $val = $this->getTwig()->render($twigTemplate, array(
                 'row' => $row,
@@ -71,6 +71,14 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         }
 
         return $val;
+    }
+
+    public function renderAll() {
+        $template = 'renderAll.html.twig';
+        if (!$this->getTwig() || !$this->getTwig()->getLoader()->exists($template)) {
+            throw new \Exception('The AppWeb::renderAll method requires a Twig template called renderAll.html.twig.');
+        }
+        return $this->getTwig()->render($template, array('row' => $this->getRow()));
     }
 
     private function pageNotFound() {
