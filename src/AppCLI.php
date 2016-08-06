@@ -6,10 +6,26 @@
 
 namespace USDOJ\SingleTablePages;
 
+/**
+ * Class AppCLI
+ * @package USDOJ\SingleTablePages
+ *
+ * A class for the CLI version of this app.
+ */
 class AppCLI extends \USDOJ\SingleTablePages\App
 {
+    /**
+     * @var string
+     *   The source file of data to import.
+     */
     private $sourceFile;
 
+    /**
+     * AppCLI constructor.
+     *
+     * @param $args
+     *   The user input from the command line.
+     */
     public function __construct($args) {
 
         $configFile = empty($args[1]) ? '' : $args[1];
@@ -32,10 +48,18 @@ class AppCLI extends \USDOJ\SingleTablePages\App
         parent::__construct($config);
     }
 
+    /**
+     * Get the source data file path.
+     *
+     * @return string
+     */
     private function getSourceFile() {
         return $this->sourceFile;
     }
 
+    /**
+     * Import the source data into the database.
+     */
     public function run() {
 
         if ($this->settings('disallow imports')) {
@@ -47,6 +71,11 @@ class AppCLI extends \USDOJ\SingleTablePages\App
         $importer->run();
     }
 
+    /**
+     * Instructions for the usage of the CLI tool.
+     *
+     * @return string
+     */
     private function getUsage() {
         $ret = 'Usage: singletablepages [config file] [source file]' . PHP_EOL;
         $ret .= '  config file: Path to .yml configuration file' . PHP_EOL;

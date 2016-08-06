@@ -6,8 +6,19 @@
 
 namespace USDOJ\SingleTablePages;
 
+/**
+ * Class Config
+ * @package USDOJ\SingleTablePages
+ *
+ * Class for our configuration object.
+ */
 class Config extends \Noodlehaus\Config
 {
+    /**
+     * Get the defaults for all optional configuration settings.
+     *
+     * @return array
+     */
     protected function getDefaults() {
         return array(
             'text alterations' => array(),

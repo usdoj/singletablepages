@@ -6,11 +6,32 @@
 
 namespace USDOJ\SingleTablePages;
 
+/**
+ * Class AppWeb
+ * @package USDOJ\SingleTablePages
+ *
+ * Class for the web version of this app.
+ */
 class AppWeb extends \USDOJ\SingleTablePages\App {
 
+    /**
+     * @var array
+     *   Associative array of data from the database for this row.
+     */
     private $row;
+
+    /**
+     * @var \Twig_Environment
+     *   Twig instance for templating the output.
+     */
     private $twig;
 
+    /**
+     * AppWeb constructor.
+     *
+     * @param $configFile
+     *   The configuration file path.
+     */
     public function __construct($configFile) {
 
         $config = new \USDOJ\SingleTablePages\Config($configFile);
@@ -48,14 +69,32 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
 
     }
 
+    /**
+     * Get the Twig instance.
+     *
+     * @return \Twig_Environment
+     */
     public function getTwig() {
         return $this->twig;
     }
 
+    /**
+     * Get the array of row data for this page.
+     *
+     * @return array
+     */
     public function getRow() {
         return $this->row;
     }
 
+    /**
+     * Render the value of one column from the row data.
+     *
+     * @param $column
+     *   The name of the database column to render.
+     *
+     * @return string
+     */
     public function renderColumn($column) {
         $val = '';
         $row = $this->getRow();
@@ -75,6 +114,12 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         return $val;
     }
 
+    /**
+     * Render a specific Twig template called "renderAll.html.twig".
+     *
+     * @return mixed
+     * @throws \Exception
+     */
     public function renderAll() {
         $template = 'renderAll.html.twig';
         if (!$this->getTwig() || !$this->getTwig()->getLoader()->exists($template)) {
@@ -83,6 +128,9 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         return $this->getTwig()->render($template, array('row' => $this->getRow()));
     }
 
+    /**
+     * Stop rendering and issue a 404.
+     */
     private function pageNotFound() {
         header('HTTP/1.0 404 Not Found');
         echo "<h1>404 Not Found</h1>";
