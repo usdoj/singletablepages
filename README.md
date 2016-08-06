@@ -51,10 +51,16 @@ After that, you simply render the various parts of the page wherever you would l
  <?php print $app->renderColumn('MyBodyColumn'); ?>
 </div>
 ```
-Additionally, if you have created a Twig template for the entire row, you can render that with:
+Additionally, if you have created a Twig template for the entire row called "renderAll.html.twig", you can render that with:
 ```
 <php print $app->renderAll(); ?>
 ```
+
+## Templating
+
+This library supports Twig templating of individual database columns. You control the location of the Twig template in the configuration file (see singletablepages.yml.dist). Inside this folder, you can optionally create template files named according to the database column, but with an extenstion of ".html.twig". For example, to template the output of the "Title" column, you would create a file called "Title.html.twig". The templates are passed a variable called "row" which contains all of the data for the page. Additionally they are passed a variable called "value" which contains only the data for the column you are templating.
+
+As mentioned above, to use the renderAll() method, you also have to create a Twig template called "renderAll.html.twig". This is useful if you would like to use Twig for a larger chunk of output, instead of just per field.
 
 ## Database table
 
