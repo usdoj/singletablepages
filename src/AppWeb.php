@@ -38,9 +38,9 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         parent::__construct($config);
 
         $param = $this->settings('url parameter');
-        $uuid = $_GET[$param];
+        $uuid = empty($_GET[$param]) ? FALSE : $_GET[$param];
 
-        if (empty($uuid) || !is_numeric($uuid)) {
+        if ($this->settings('require valid uuid') && (empty($uuid) || !is_numeric($uuid))) {
             $this->pageNotFound();
         }
 
@@ -54,8 +54,13 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
             ->setParameter('uuid', $uuid);
 
         $row = $query->execute()->fetch();
-        if (empty($row)) {
+
+        if ($this->settings('require valid uuid') && empty($row)) {
             $this->pageNotFound();
+        }
+        elseif (empty($row)) {
+            $this->row = FALSE;
+            return;
         }
 
         $this->row = $row;
@@ -98,6 +103,9 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
     public function renderColumn($column) {
         $val = '';
         $row = $this->getRow();
+        if (empty($row)) {
+            return '';
+        }
         if (!empty($row[$column])) {
             $val = $row[$column];
         }
@@ -121,11 +129,15 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
      * @throws \Exception
      */
     public function renderAll() {
+        $row = $this->getRow();
+        if (empty($row)) {
+            return '';
+        }
         $template = 'renderAll.html.twig';
         if (!$this->getTwig() || !$this->getTwig()->getLoader()->exists($template)) {
             throw new \Exception('The AppWeb::renderAll method requires a Twig template called renderAll.html.twig.');
         }
-        return $this->getTwig()->render($template, array('row' => $this->getRow()));
+        return $this->getTwig()->render($template, array('row' => $row));
     }
 
     /**

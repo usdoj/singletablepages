@@ -28,6 +28,7 @@ class Config extends \Noodlehaus\Config
             'disallow imports' => FALSE,
             'template folder' => '',
             'unique column' => 'uuid',
+            'require valid uuid' => TRUE,
         );
     }
 }
