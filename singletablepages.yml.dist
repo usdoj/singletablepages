@@ -66,3 +66,8 @@ template folder: /path/to/templates
 # charge of refreshing the data, you may want to disallow any refreshes, so
 # avoid problems. If so, set this to true.
 disallow imports: false
+
+# If you want to return a 404 for invalid or missing uuids, set this to true.
+# On the other hand, if you want to allow this app to be loaded on pages where
+# it won't necessarily have an active row being displayed, set this to false.
+require valid uuid: true
