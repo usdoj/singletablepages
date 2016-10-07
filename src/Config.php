@@ -22,8 +22,6 @@ class Config extends \Noodlehaus\Config
     protected function getDefaults() {
         return array(
             'text alterations' => array(),
-            'convert from excel dates' => array(),
-            'convert from unix dates' => array(),
             'url parameter' => 'stp',
             'disallow imports' => FALSE,
             'template folder' => '',
