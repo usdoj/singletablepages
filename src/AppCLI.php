@@ -66,8 +66,12 @@ class AppCLI extends \USDOJ\SingleTablePages\App
             die('Imports have been disabled for this application, per the configuration file.');
         }
 
-        // First import the source data.
-        $importer = new \USDOJ\CsvToMysql\Importer($this->getConfig(), $this->getSourceFile());
+        $importer = new \USDOJ\SingleTableImporter\Importer($this->getConfig(), $this->getSourceFile());
+
+        // First do a test run.
+        $importer->testRun();
+
+        // Next import the source data.
         $importer->run();
     }
 
@@ -79,7 +83,7 @@ class AppCLI extends \USDOJ\SingleTablePages\App
     private function getUsage() {
         $ret = 'Usage: singletablepages [config file] [source file]' . PHP_EOL;
         $ret .= '  config file: Path to .yml configuration file' . PHP_EOL;
-        $ret .= '  source file: Path to source data (must be a csv file with a header matching the database columns)' . PHP_EOL;
+        $ret .= '  source file: Path to source data (must be a CSV or Excel file with a header matching the database columns)' . PHP_EOL;
         return $ret;
     }
 }
