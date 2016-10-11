@@ -39,10 +39,6 @@ class AppCLI extends \USDOJ\SingleTablePages\App
             die(sprintf('Config file not found at %s', $configFile));
         }
 
-        if (!is_file($sourceFile)) {
-            die(sprintf('Source data not found at %s', $sourceFile));
-        }
-
         $this->sourceFile = $sourceFile;
         $config = new \USDOJ\SingleTablePages\Config($configFile);
         parent::__construct($config);
