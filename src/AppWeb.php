@@ -70,6 +70,10 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
 
             $loader = new \Twig_Loader_Filesystem($templateFolder);
             $this->twig = new \Twig_Environment($loader);
+
+            // Allow for Markdown.
+            $engine = new \Aptoma\Twig\Extension\MarkdownEngine\MichelfMarkdownEngine();
+            $this->twig->addExtension(new \Aptoma\Twig\Extension\MarkdownExtension($engine));
         }
 
     }

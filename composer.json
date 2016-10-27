@@ -5,7 +5,9 @@
         "hassankhan/config": "0.10.0",
         "symfony/yaml": "2.0.7",
         "twig/twig": "1.24.1",
-        "usdoj/singletableimporter": "dev-master"
+        "usdoj/singletableimporter": "dev-master",
+        "aptoma/twig-markdown": "~2.0",
+        "michelf/php-markdown": "~1.3"
     },
     "repositories": [
         {
