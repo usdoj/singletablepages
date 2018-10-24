@@ -27,6 +27,8 @@ class Config extends \Noodlehaus\Config
             'template folder' => '',
             'unique column' => 'uuid',
             'require valid uuid' => TRUE,
+            'file with twig functions' => '',
+            'list of twig functions' => array(),
         );
     }
 }
