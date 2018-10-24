@@ -43,6 +43,19 @@ url parameter: stp
 # to the AppWeb::renderAll() method.
 template folder: /path/to/templates
 
+# Twig offers the ability to load custom functions. If you would like to take
+# advantage of this, you can create a single file with PHP functions in it,
+# and reference that file here. Note that you must also list the functions to
+# load in "list of twig functions" below. For more information on Twig
+# functions, see http://twig.sensiolabs.org/doc/advanced.html.
+#file with twig functions: /path/to/my-twig-function-file.php
+
+# If you indicated a file with Twig functions above, you also need to list the
+# names of all the functions you want to use.
+#list of twig functions:
+#    - my_first_twig_function
+#    - my_second_twig_function
+
 # If there are any special characters or phrases that need to be altered when
 # importing the data from the CSV file, indicate those here. For example, to
 # change all occurences of § with &#167; uncomment the lines below.
