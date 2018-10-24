@@ -66,10 +66,22 @@ class AppWeb extends \USDOJ\SingleTablePages\App {
         $this->row = $row;
 
         $templateFolder = $this->settings('template folder');
+        $functionFile = $this->settings('file with twig functions');
+        $functionList = $this->settings('list of twig functions');
+        $twigFunctions = array();
+        if (file_exists($functionFile)) {
+            include($functionFile);
+            foreach ($functionList as $func) {
+                $twigFunctions[] = new \Twig_SimpleFunction($func, $func);
+            }
+        }
         if (!empty($templateFolder) && file_exists($templateFolder)) {
 
             $loader = new \Twig_Loader_Filesystem($templateFolder);
             $this->twig = new \Twig_Environment($loader);
+            foreach ($twigFunctions as $twigFunction) {
+                $this->twig->addFunction($twigFunction);
+            }
 
             // Allow for Markdown.
             $engine = new \Aptoma\Twig\Extension\MarkdownEngine\MichelfMarkdownEngine();
