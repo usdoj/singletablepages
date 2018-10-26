@@ -71,3 +71,9 @@ disallow imports: false
 # On the other hand, if you want to allow this app to be loaded on pages where
 # it won't necessarily have an active row being displayed, set this to false.
 require valid uuid: true
+
+# Set the delimiter for CSV imports. Defaults to a comma.
+csv delimiter: ','
+
+# Set the enclosure for CSV imports Defaults to a double-quote.
+csv enclosure: '"'
